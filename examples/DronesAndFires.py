@@ -4,6 +4,7 @@ from piosdk.piosdk import Pioneer
 from sklearn.cluster import KMeans  # pip install scikit-learn
 
 
+# Данная функция используется лишь для примера вычисления центра найденных точек пожаров
 def get_center_clusters(data, num_clasters):
     """ Поиск кластеров в наборе данных """
     kmeans = KMeans(n_clusters=num_clasters, max_iter=100)

@@ -4,9 +4,9 @@ from edubot_sdk.edubot_sdk import EdubotGCS  # Импортируем класс
 from piosdk.piosdk import Pioneer  # Импортируем класс Pioneer
 from threading import Thread
 
-e_1 = EdubotGCS(connection_method="udpout", ip="127.0.0.1", mavlink_port=8000)
-e_2 = EdubotGCS(connection_method="udpout", ip="127.0.0.1", mavlink_port=8001)
-e_3 = EdubotGCS(connection_method="udpout", ip="127.0.0.1", mavlink_port=8002)
+e_1 = EdubotGCS(ip="127.0.0.1", mavlink_port=8000)
+e_2 = EdubotGCS(ip="127.0.0.1", mavlink_port=8001)
+e_3 = EdubotGCS(ip="127.0.0.1", mavlink_port=8002)
 
 p_1 = Pioneer(method=2, pioneer_ip="127.0.0.1", pioneer_mavlink_port=8003, logger=False)
 p_2 = Pioneer(method=2, pioneer_ip="127.0.0.1", pioneer_mavlink_port=8005, logger=False)
