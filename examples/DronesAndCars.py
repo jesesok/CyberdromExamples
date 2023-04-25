@@ -1,15 +1,39 @@
+import dataclasses
 import time
+from threading import Thread
 
 from edubot_sdk.edubot_sdk import EdubotGCS  # Импортируем класс РТС
 from piosdk.piosdk import Pioneer  # Импортируем класс Pioneer
-from threading import Thread
 
-e_1 = EdubotGCS(ip="127.0.0.1", mavlink_port=8000)
-e_2 = EdubotGCS(ip="127.0.0.1", mavlink_port=8001)
-e_3 = EdubotGCS(ip="127.0.0.1", mavlink_port=8002)
 
-p_1 = Pioneer(method=2, pioneer_ip="127.0.0.1", pioneer_mavlink_port=8003, logger=False)
-p_2 = Pioneer(method=2, pioneer_ip="127.0.0.1", pioneer_mavlink_port=8005, logger=False)
+# Классы для хранения настроек подключения
+@dataclasses.dataclass
+class IpPort:
+    ip: str
+    port: int
+
+
+class DroneConnectingData:
+    drone0: IpPort = IpPort(ip="127.0.0.1", port=8000)
+    drone1: IpPort = IpPort(ip="127.0.0.1", port=8001)
+    drone2: IpPort = IpPort(ip="127.0.0.1", port=8002)
+    drone3: IpPort = IpPort(ip="127.0.0.1", port=8003)
+
+
+class RobotConnectingData:
+    robot0: IpPort = IpPort(ip="127.0.0.1", port=8004)
+    robot1: IpPort = IpPort(ip="127.0.0.1", port=8005)
+    robot2: IpPort = IpPort(ip="127.0.0.1", port=8006)
+    robot3: IpPort = IpPort(ip="127.0.0.1", port=8007)
+
+
+# код программы...
+p_1 = Pioneer(ip=DroneConnectingData.drone0.ip, mavlink_port=DroneConnectingData.drone0.port)
+p_2 = Pioneer(ip=DroneConnectingData.drone1.ip, mavlink_port=DroneConnectingData.drone1.port)
+
+e_1 = EdubotGCS(ip=RobotConnectingData.robot0.ip, mavlink_port=RobotConnectingData.robot0.port)
+e_2 = EdubotGCS(ip=RobotConnectingData.robot1.ip, mavlink_port=RobotConnectingData.robot1.port)
+e_3 = EdubotGCS(ip=RobotConnectingData.robot2.ip, mavlink_port=RobotConnectingData.robot2.port)
 
 e_1.go_to_local_point(5, 5)
 

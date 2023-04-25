@@ -1,8 +1,34 @@
-import time
+import dataclasses
 import threading
-from piosdk.piosdk import Pioneer
+import time
+
 from sklearn.cluster import KMeans  # pip install scikit-learn
 
+from piosdk.piosdk import Pioneer
+
+
+# Классы для хранения настроек подключения
+@dataclasses.dataclass
+class IpPort:
+    ip: str
+    port: int
+
+
+class DroneConnectingData:
+    drone0: IpPort = IpPort(ip="127.0.0.1", port=8000)
+    drone1: IpPort = IpPort(ip="127.0.0.1", port=8001)
+    drone2: IpPort = IpPort(ip="127.0.0.1", port=8002)
+    drone3: IpPort = IpPort(ip="127.0.0.1", port=8003)
+
+
+class RobotConnectingData:
+    robot0: IpPort = IpPort(ip="127.0.0.1", port=8004)
+    robot1: IpPort = IpPort(ip="127.0.0.1", port=8005)
+    robot2: IpPort = IpPort(ip="127.0.0.1", port=8006)
+    robot3: IpPort = IpPort(ip="127.0.0.1", port=8007)
+
+
+# код программы...
 
 # Данная функция используется лишь для примера вычисления центра найденных точек пожаров
 def get_center_clusters(data, num_clasters):
@@ -13,10 +39,9 @@ def get_center_clusters(data, num_clasters):
 
 
 drones = []
-
-drones.append(Pioneer(method=2, pioneer_ip="127.0.0.1", pioneer_mavlink_port=8000, logger=False))
-drones.append(Pioneer(method=2, pioneer_ip="127.0.0.1", pioneer_mavlink_port=8001, logger=False))
-drones.append(Pioneer(method=2, pioneer_ip="127.0.0.1", pioneer_mavlink_port=8002, logger=False))
+drones.append(Pioneer(ip=DroneConnectingData.drone0.ip, mavlink_port=DroneConnectingData.drone0.port))
+drones.append(Pioneer(ip=DroneConnectingData.drone1.ip, mavlink_port=DroneConnectingData.drone1.port))
+drones.append(Pioneer(ip=DroneConnectingData.drone2.ip, mavlink_port=DroneConnectingData.drone2.port))
 
 points_interest = []  # массив хранит в себе все точки, где температура была 60
 centre_fire = []  # массив куда запишутся центры кластеров
