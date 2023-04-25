@@ -8,8 +8,8 @@ import time
 
 
 class Pioneer:
-    def __init__(self, method=0, pioneer_ip='192.168.4.1', pioneer_mavlink_port=8001, device='/dev/serial0',
-                 baud=115200, logger=True):
+    def __init__(self, method=2, ip='192.168.4.1', mavlink_port=8001, device='/dev/serial0',
+                 baud=115200, logger=False):
 
         self.__heartbeat_send_delay = 0.25
         self.__ack_timeout = 0.2
@@ -62,8 +62,8 @@ class Pioneer:
         if method == 0:
             print('метод соединения', method)
             try:
-                print('соединение по wifi', pioneer_ip, pioneer_mavlink_port)
-                self.__mavlink_socket = mavutil.mavlink_connection('udpin:%s:%s' % (pioneer_ip, pioneer_mavlink_port))
+                print('соединение по wifi', ip, mavlink_port)
+                self.__mavlink_socket = mavutil.mavlink_connection('udpin:%s:%s' % (ip, mavlink_port))
             except socket.error:
                 print('Can not connect to pioneer. Do you connect to drone wifi?')
                 sys.exit()
@@ -79,8 +79,8 @@ class Pioneer:
         elif method == 2:
             print('метод соединения', method)
             try:
-                print('соединение по wifi', pioneer_ip, pioneer_mavlink_port)
-                self.__mavlink_socket = mavutil.mavlink_connection('udpout:%s:%s' % (pioneer_ip, pioneer_mavlink_port))
+                print('соединение по wifi', ip, mavlink_port)
+                self.__mavlink_socket = mavutil.mavlink_connection('udpout:%s:%s' % (ip, mavlink_port))
             except socket.error:
                 print('Can not connect to pioneer. Do you connect to drone wifi?')
                 sys.exit()
