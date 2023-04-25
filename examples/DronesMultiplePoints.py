@@ -19,10 +19,10 @@ position_object = {
         },
     "points_interest":
         {
-            "point0": [6.5, 8, 1],
-            "point1": [6.5, 4, 1],
-            "point2": [9, 6.5, 1],
-            "point3": [9, 2, 1]
+            "point0": [-3.5, 1.5, 1],
+            "point1": [-3.5, 4, 1],
+            "point2": [-1, 2.5, 1],
+            "point3": [-1, 2, 1]
         }
 }
 
