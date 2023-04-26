@@ -677,8 +677,8 @@ class Pioneer:
             pass
 
 
-    def go_to_local_point(self, x=None, y=None, z=None, vx=None, vy=None, vz=None, afx=None, afy=None, afz=None,
-                          yaw=None, yaw_rate=None):
+    def go_to_local_point(self, x=None, y=None, z=None, vx=0.1, vy=0.1, vz=0.1, afx=0.1, afy=0.1, afz=0.1,
+                          yaw=0, yaw_rate=0):
 
         """ Полет в точку в коо-тах системы навигации """
 
@@ -904,14 +904,9 @@ class Pioneer:
             else:
                 return None
 
-    def fire_detection(self, sim=True):
+    def fire_detection(self):
         """ Мигание красной индикацией """
-        if sim:
-            flasher_thread = threading.Thread(target=self.__flasher)
-            flasher_thread.start()
-            print('flasher')
-        else:
-            self.led_custom(mode=2, color1=[255, 0, 0], timer=5)
+        self.led_custom(mode=2, color1=[255, 0, 0], timer=5)
 
     def __flasher(self, color=(255, 0, 0), t=5, period=0.5):
         t_start = time.time()
